@@ -165,4 +165,20 @@ describe('basic-auth', () => {
             expect(user.checkPassword(wrongPassword)).to.be.false;
         });
     });
+
+    describe('#validateUser', () => {
+        it('should run callback without errors if everything is ok', done => {
+            likenowauth.validateUser(getUserObject(), (err) => {
+                expect(err).to.be.null;
+                done();
+            });
+        });
+
+        it('should throw error if missing values', done => {
+           likenowauth.validateUser({email: 'test@user.com'}, (err) => {
+                expect(err).to.not.be.null;
+                done();
+            }); 
+        });
+    });
 });

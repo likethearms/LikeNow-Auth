@@ -22,3 +22,4 @@ exports.getExtendedUserSchema = function (schema, options) {
 };
 
 exports.tokenMiddleware = token.tokenMiddleware;
+exports.validateUser = ext.validateUser;

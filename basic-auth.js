@@ -44,6 +44,16 @@ exports.logIn = function (obj, loginCallback) {
     });
 };
 
+let validateUser = function (obj, callback) {
+    // Missing email and username
+    if(!obj.email && !obj.username) return callback(new Error('Missing username and email'));
+    // Missing password
+    if(!obj.password) return callback(new Error('Missing password'));
+    callback(null);
+};
+exports.validateUser = validateUser;
+
+
 /**
  * Sign user in
  *
@@ -54,19 +64,19 @@ exports.logIn = function (obj, loginCallback) {
  * @param {Function} callback
  */
 exports.signUp = function(obj, callback) {
-    // Missing email and username
-    if(!obj.email && !obj.username) return callback(new Error('Missing username and email'));
-    // Missing password
-    if(!obj.password) return callback(new Error('Missing password'));
-    // Password BCrypt
-    let salt = bcrypt.genSaltSync(10);
-    obj.password = bcrypt.hashSync(obj.password, salt);
-    // Create user
-    new this(obj).save((err,user) => {
-        if(err){
-            if(err.name === 'MongoError' && err.code === 11000) return callback(new Error('There was a duplicate key error'));
-            return callback(new Error(err.message));
-        }
-        return callback(null, user);
+    let that = this;
+    validateUser(obj, function(err){
+        if(err) return callback(new Error(err.message));
+        // Password BCrypt
+        let salt = bcrypt.genSaltSync(10);
+        obj.password = bcrypt.hashSync(obj.password, salt);
+        // Create user
+        new that(obj).save((err,user) => {
+            if(err){
+                if(err.name === 'MongoError' && err.code === 11000) return callback(new Error('There was a duplicate key error'));
+                return callback(new Error(err.message));
+            }
+            return callback(null, user);
+        });
     });
 };
