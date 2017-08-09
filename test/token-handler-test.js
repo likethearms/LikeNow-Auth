@@ -68,4 +68,19 @@ describe('token handler', () => {
             });
         });
     });
+
+    describe('#getTokens', () => {
+        it('should return all users tokens', done => {
+            User.removeToken({}, () => {
+                user.createToken({}, () => {
+                    user.createToken({}, () => {
+                        user.getTokens((err,tokens) => {
+                            expect(tokens).to.be.length(2);
+                            done();
+                        });
+                    });      
+                });
+            })
+        });
+    });
 });

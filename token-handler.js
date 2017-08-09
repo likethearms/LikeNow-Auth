@@ -74,3 +74,8 @@ exports.tokenMiddleware = function (req, res, next) {
         return res.status(401).json({message: "Authorization header missing!"});
     }
 };
+
+exports.getTokens = function(cb){
+    let id = this._id ? this._id : this.id;
+    Token.find({user: id}, cb);
+}

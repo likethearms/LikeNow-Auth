@@ -8,6 +8,7 @@ exports.extendSchema = function (schema) {
     schema.statics.signUp = ext.signUp;
 
     schema.methods.createToken = token.createToken;
+    schema.methods.getTokens = token.getTokens;
     schema.statics.findToken = token.findToken;
     schema.statics.findOneToken = token.findOneToken;
     schema.statics.removeToken = token.removeToken;

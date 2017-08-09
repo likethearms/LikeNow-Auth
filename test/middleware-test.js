@@ -28,7 +28,7 @@ app.get('/secret', likeNowAuth.tokenMiddleware, function (req, res) {
     return res.json('Hello World!')
 });
 
-app.listen(3000, function () {
+app.listen(3131, function () {
     console.log('Example app listening on port 3000!')
 });
 
