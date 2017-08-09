@@ -18,6 +18,7 @@ let TokenSchema = mongoose.Schema({
         type: Date,
         default: new Date(+new Date() + 604800000)
     },
+    name: String,
     os: String,
     browser: String,
     fingerprint: String,
