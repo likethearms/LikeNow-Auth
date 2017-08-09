@@ -1,36 +1,23 @@
-const mongoose = require('mongoose');
 const ext = require('./basic-auth');
-
-exports.getUserSchema = function (schema, options) {
-    schema = schema || {};
-    if(!('email' in schema)){
-        schema.email = {
-            type: String,
-                unique: true,
-                trim: true,
-                required: true
-        }
-    }
-
-    if(!('password' in schema)){
-        schema.password = {
-            type: String,
-            required: true,
-            trim: true
-        }
-    }
-
-    return mongoose.Schema(schema, options);
-};
+const userModel = require('./User');
+const token = require('./token-handler');
 
 exports.extendSchema = function (schema) {
     schema.methods.checkPassword = ext.checkPassword;
     schema.statics.logIn = ext.logIn;
     schema.statics.signUp = ext.signUp;
+
+    schema.methods.createToken = token.createToken;
+    schema.statics.findToken = token.findToken;
+    schema.statics.findOneToken = token.findOneToken;
+    schema.statics.removeToken = token.removeToken;
+
     return schema;
 };
 
 exports.getExtendedUserSchema = function (schema, options) {
-    let UserSchema = exports.getUserSchema(schema, options);
+    let UserSchema = userModel.getUserSchema(schema, options);
     return exports.extendSchema(UserSchema);
 };
+
+exports.tokenMiddleware = token.tokenMiddleware;
