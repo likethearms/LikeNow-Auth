@@ -24,7 +24,6 @@ exports.getUserSchema = function (schema, options) {
 };
 
 exports.extendSchema = function (schema) {
-    schema.methods.getJWTToken = ext.getJWTToken;
     schema.methods.checkPassword = ext.checkPassword;
     schema.statics.logIn = ext.logIn;
     schema.statics.signUp = ext.signUp;
