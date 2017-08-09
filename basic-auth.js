@@ -1,14 +1,4 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
-/**
- * Get token
- *
- * @returns {String} - User token
- */
-exports.getJWTToken = function(secret, options) {
-    return jwt.sign({user_id: this.id}, secret, options);
-};
 
 /**
  * Check if password match with hash

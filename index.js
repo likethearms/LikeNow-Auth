@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ext = require('./ExtendedSchema');
+const ext = require('./basic-auth');
 
 exports.getUserSchema = function (schema, options) {
     schema = schema || {};
