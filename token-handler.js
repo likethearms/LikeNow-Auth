@@ -7,7 +7,7 @@ let UserSchema = userModel.getUserSchema();
 let Token;
 let TokenSchema = mongoose.Schema({
     user: {
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     token: {
@@ -23,29 +23,35 @@ let TokenSchema = mongoose.Schema({
     browser: String,
     fingerprint: String,
     device: String,
-}, {timestamps: true});
+}, { timestamps: true });
 
 Token = mongoose.model('AuthorizationToken', TokenSchema);
 
-exports.createToken = function(options,cb){
+exports.createToken = function (options, cb) {
     let opt = options;
     let id = this._id ? this._id : this.id;
-    if(!('token' in options))opt.token = randomstring.generate(150);
-    if(!('user' in options)) opt.user = id;
+    if (!('token' in options)) opt.token = randomstring.generate(150);
+    if (!('user' in options)) opt.user = id;
     new Token(opt).save(cb);
 };
 
-exports.findToken = function (query,cb) {
+exports.findToken = function (query, cb) {
     Token.find(query, cb);
 };
 
-const findOneToken = function (query,cb) {
-    Token.findOne(query,cb);
+const findOneToken = function (query, cb) {
+    Token.findOne(query, cb);
 };
 exports.findOneToken = findOneToken;
 
 exports.removeToken = function (query, cb) {
-    Token.remove(query,cb);
+    Token.remove(query, cb);
+};
+
+exports.validateToken = function (token, cb) {
+    findOneToken({ token: token, expires: { $gt: new Date() } }, (err, tokenObj) => {
+        cb(err, totokenObjken);
+    });
 };
 
 exports.tokenMiddleware = function (req, res, next) {
@@ -55,16 +61,16 @@ exports.tokenMiddleware = function (req, res, next) {
         // If one exists, attempt to get the header data
         let token = req.header('authorization').split('Bearer ')[1];
         // If there's nothing after "Bearer", just redirect to login
-        if (!token) return res.status(401).json({message: "No bearer"});
+        if (!token) return res.status(401).json({ message: "No bearer" });
         // find token
-        findOneToken({token: token, expires: {$gt: new Date()}}, (err,tokenObj) => {
+        findOneToken({ token: token, expires: { $gt: new Date() } }, (err, tokenObj) => {
             // If there's an error verifying the token (e.g. it's invalid or expired)
-            if (err || !tokenObj) return res.status(401).json({message: "Invalid or expired"});
-            User.findById(tokenObj.user,function (err,user) {
+            if (err || !tokenObj) return res.status(401).json({ message: "Invalid or expired" });
+            User.findById(tokenObj.user, function (err, user) {
                 // Query error
-                if (err) return res.status(401).json({message: "Query error"});
+                if (err) return res.status(401).json({ message: "Query error" });
                 // If the user can't be found, redirect to the login page
-                if (!user) return res.status(401).json({message: "Could not find user"});
+                if (!user) return res.status(401).json({ message: "Could not find user" });
                 // Otherwise save the user object on the request (i.e. "log in") and continue
                 req.user = user;
                 return next();
@@ -72,11 +78,11 @@ exports.tokenMiddleware = function (req, res, next) {
         });
     } else {
         // No authorization header
-        return res.status(401).json({message: "Authorization header missing!"});
+        return res.status(401).json({ message: "Authorization header missing!" });
     }
 };
 
-exports.getTokens = function(cb){
+exports.getTokens = function (cb) {
     let id = this._id ? this._id : this.id;
-    Token.find({user: id}, cb);
+    Token.find({ user: id }, cb);
 }

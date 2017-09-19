@@ -15,6 +15,7 @@ exports.extendSchema = function (schema) {
 
     return schema;
 };
+// https://stackoverflow.com/a/33976278
 
 exports.getExtendedUserSchema = function (schema, options) {
     let UserSchema = userModel.getUserSchema(schema, options);
@@ -23,3 +24,4 @@ exports.getExtendedUserSchema = function (schema, options) {
 
 exports.tokenMiddleware = token.tokenMiddleware;
 exports.validateUser = ext.validateUser;
+exports.validateToken = token.validateToken;
