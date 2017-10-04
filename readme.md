@@ -45,7 +45,7 @@ Extended schema add these methods and statics to mongoose schema.
 |-|-|-|-|-|-|
 |constructor|constuctor|schema, options| void| void | true
 |getExtendedUserSchema|method||void|void|true
-|extendSchema|static|schema|extendedSchema| void| true
+|extendSchema|static|schema|extendedSchema|void|true(Test)
 |checkPassword|plainPassword|void|-|Boolean|true
 |logIn|object,callback|err,user|-|void|true
 |validateUser|object,callback|err|-|void|false
