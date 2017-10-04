@@ -32,20 +32,32 @@ module.exports = User;
 
 ### Extended schema
 Extended schema add these methods and statics to mongoose schema.
+
 |API|Params|Callback|Return|Tested|Description
 |-|-|-|-|-|-|
 |checkPassword|plainPassword|void|Boolean|true|-
 |logIn|object,callback|err,user|void|true|require password AND (email OR username)
 |signUp|object,callback|err,user|void|true|signup require password AND (email OR username)
-|createToken| options, callback | err, tokenObj |void|true|Create token and save to  db
+|createToken|options, callback | err, tokenObj |void|true|Create token and save to db
 |getTokens| callback | err, tokenArray | void| true | return all user's tokens
+
+
+|API|Params|Callback|Return|Tested|Description
+|-|-|-|-|-|-|
+|checkPassword|plainPassword|void|Boolean|true
+|logIn|object,callback|err,user|void|true
+|signUp|object,callback|err,user|void|true
+|createToken|options, callback|err, tokenObj|void|true
+|getTokens|callback|err, tokenArray|void|true 
+
+
 
 ### ExtendedUserSchema
 |API|Method|Params|Callback|Return|Tested
 |-|-|-|-|-|-|
 |constructor|constuctor|schema, options| void| void | true
 |getExtendedUserSchema|method||void|void|true
-|extendSchema|static|schema|extendedSchema|void|true(Test)
+|extendSchema|static|schema|extendedSchema|void|true
 |checkPassword|plainPassword|void|-|Boolean|true
 |logIn|object,callback|err,user|-|void|true
 |validateUser|object,callback|err|-|void|false
