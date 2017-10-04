@@ -34,7 +34,7 @@ module.exports = User;
 Extended schema add these methods and statics to mongoose schema.
 |API|Params|Callback|Return|Tested|Description
 |-|-|-|-|-|-|
-|checkPassword|plainPassword|void|Boolean|true
+|checkPassword|plainPassword|void|Boolean|true|-
 |logIn|object,callback|err,user|void|true|require password AND (email OR username)
 |signUp|object,callback|err,user|void|true|signup require password AND (email OR username)
 |createToken| options, callback | err, tokenObj |void|true|Create token and save to  db
