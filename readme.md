@@ -41,17 +41,6 @@ Extended schema add these methods and statics to mongoose schema.
 |createToken|options, callback | err, tokenObj |void|true|Create token and save to db
 |getTokens| callback | err, tokenArray | void| true | return all user's tokens
 
-
-|API|Params|Callback|Return|Tested|Description
-|-|-|-|-|-|-|
-|checkPassword|plainPassword|void|Boolean|true
-|logIn|object,callback|err,user|void|true
-|signUp|object,callback|err,user|void|true
-|createToken|options, callback|err, tokenObj|void|true
-|getTokens|callback|err, tokenArray|void|true 
-
-
-
 ### ExtendedUserSchema
 |API|Method|Params|Callback|Return|Tested
 |-|-|-|-|-|-|
