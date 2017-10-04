@@ -46,10 +46,10 @@ Extended schema add these methods and statics to mongoose schema.
 |constructor|constuctor|schema, options| void| void | true
 |getExtendedUserSchema|method||void|void|true
 |extendSchema|static|schema|extendedSchema| void| true
-|checkPassword|plainPassword|void|Boolean|true|
-|logIn|object,callback|err,user|void|true
-|validateUser|object,callback|err|void|false|
-|signUp|object,callback|err,user|void|true
+|checkPassword|plainPassword|void|-|Boolean|true
+|logIn|object,callback|err,user|-|void|true
+|validateUser|object,callback|err|-|void|false
+|signUp|object,callback|err,user|-|void|true
 
 ### TokenHandler
 |API|Params|Callback|Tested
