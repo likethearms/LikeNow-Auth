@@ -1,27 +1,10 @@
-const ext = require('./basic-auth');
-const userModel = require('./User');
-const token = require('./token-handler');
+const t = require('./TokenHandler');
+const e = require('./ExtendedUserSchema');
+const ts = require('./TokenSchema');
 
-exports.extendSchema = function (schema) {
-    schema.methods.checkPassword = ext.checkPassword;
-    schema.statics.logIn = ext.logIn;
-    schema.statics.signUp = ext.signUp;
-
-    schema.methods.createToken = token.createToken;
-    schema.methods.getTokens = token.getTokens;
-    schema.statics.findToken = token.findToken;
-    schema.statics.findOneToken = token.findOneToken;
-    schema.statics.removeToken = token.removeToken;
-
-    return schema;
+exports.ExtendedUserSchema = e;
+exports.TokenHandler = t;
+exports.TokenSchema = ts;
+exports.getExtendedUserSchema = (schema,options) => {
+	return new e(schema,options).getExtendedUserSchema();
 };
-// https://stackoverflow.com/a/33976278
-
-exports.getExtendedUserSchema = function (schema, options) {
-    let UserSchema = userModel.getUserSchema(schema, options);
-    return exports.extendSchema(UserSchema);
-};
-
-exports.tokenMiddleware = token.tokenMiddleware;
-exports.validateUser = ext.validateUser;
-exports.validateToken = token.validateToken;
