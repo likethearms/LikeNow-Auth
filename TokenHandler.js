@@ -2,7 +2,7 @@ const randomstring = require('randomstring');
 const mongoose = require('mongoose');
 const Token = require('./TokenSchema');
 
-module.exports = class TokenHandler {
+class TokenHandler {
 
 	/**
 	 * Create token
@@ -99,4 +99,6 @@ module.exports = class TokenHandler {
 		let id = this._id ? this._id : this.id;
 		Token.find({ user: id }, cb);
 	}
-};
+}
+
+exports.TokenHandler = TokenHandler;

@@ -9,6 +9,7 @@ mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
 
 let User;
 let UserSchema = likenowauth.getExtendedUserSchema();
+
 if (mongoose.models.User) {
 	User = mongoose.model('User');
 } else {

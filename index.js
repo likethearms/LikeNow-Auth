@@ -1,10 +1,10 @@
-const t = require('./TokenHandler');
-const e = require('./ExtendedUserSchema');
+const { ExtendedUserSchema } = require('./ExtendedUserSchema');
+const { TokenHandler } = require('./TokenHandler');
 const ts = require('./TokenSchema');
 
-exports.ExtendedUserSchema = e;
-exports.TokenHandler = t;
+exports.ExtendedUserSchema = ExtendedUserSchema;
+exports.TokenHandler = TokenHandler;
 exports.TokenSchema = ts;
-exports.getExtendedUserSchema = (schema,options) => {
-	return new e(schema,options).getExtendedUserSchema();
+exports.getExtendedUserSchema = (schema, options) => {
+	return new ExtendedUserSchema(schema, options).getExtendedUserSchema();
 };

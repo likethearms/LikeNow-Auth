@@ -1,12 +1,12 @@
 const User = require('./User');
 const bcrypt = require('bcrypt');
-const TokenHandle = require('./TokenHandler');
+const { TokenHandler } = require('./TokenHandler');
 
-module.exports = class ExtendedUserSchema {
+class ExtendedUserSchema {
 	constructor(schema, options) {
 		this.UserSchema = User.getUserSchema(schema, options);
 	}
-	
+
 	getExtendedUserSchema() {
 		return ExtendedUserSchema.extendSchema(this.UserSchema);
 	}
@@ -16,8 +16,8 @@ module.exports = class ExtendedUserSchema {
 		schema.statics.signUp = this.signUp;
 		schema.statics.validateUser = this.validateUser;
 		schema.methods.checkPassword = this.checkPassword;
-		schema.methods.getTokens = TokenHandle.getTokens;
-		schema.methods.createToken = TokenHandle.createToken;
+		schema.methods.getTokens = TokenHandler.getTokens;
+		schema.methods.createToken = TokenHandler.createToken;
 		return schema;
 	}
 
@@ -75,4 +75,6 @@ module.exports = class ExtendedUserSchema {
 		if (!obj.password) return callback(new Error('Missing password'));
 		callback(null);
 	}
-};
+}
+
+exports.ExtendedUserSchema = ExtendedUserSchema;
