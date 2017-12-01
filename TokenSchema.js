@@ -11,7 +11,7 @@ let TokenSchema = mongoose.Schema({
 	},
 	expires: {
 		type: Date,
-		default: new Date(new Date()->getTime() + 604800000)
+		default: new Date(new Date().getTime() + 604800000)
 
 	},
 	name: String,
