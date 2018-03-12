@@ -52,7 +52,7 @@ class ExtendedUserSchema {
 
 	static signUp(obj, callback) {
 		let that = this;
-		ExtendedUserSchema.validateUser(obj, function (err) {
+		this.validateUser(obj, function (err) {
 			if (err) return callback(new Error(err.message));
 			// Password BCrypt
 			let salt = bcrypt.genSaltSync(10);
@@ -69,11 +69,16 @@ class ExtendedUserSchema {
 	}
 
 	static validateUser(obj, callback) {
-		// Missing email and username
-		if (!obj.email && !obj.username) return callback(new Error('Missing username and email'));
-		// Missing password
-		if (!obj.password) return callback(new Error('Missing password'));
-		callback(null);
+		let { email, username, password } = obj;
+		this.find((email || username), (e, u) => {
+			if (e) return callback(e);
+			if (u.length) return callback(new Error('Username or Email is already in db'));
+			// Missing email and username
+			if (!email && !username) return callback(new Error('Missing username and email'));
+			// Missing password
+			if (!password) return callback(new Error('Missing password'));
+			callback(null);
+		});
 	}
 }
 

@@ -74,7 +74,7 @@ describe('basic-auth', () => {
 			User.signUp(userObj, (err, user) => {
 				User.signUp(userObj, (err, user) => {
 					expect(err).to.be.instanceOf(Error);
-					expect(err.message).to.equal('There was a duplicate key error');
+					expect(err.message).to.equal('Username or Email is already in db');
 					expect(user).to.be.undefined;
 					done();
 				});
@@ -168,6 +168,12 @@ describe('basic-auth', () => {
 	});
 
 	describe('#validateUser', () => {
+		beforeEach(done => {
+			User.remove({}, () => {
+				done();
+			});
+		});
+
 		it('should run callback without errors if everything is ok', done => {
 			User.validateUser(getUserObject(), (err) => {
 				expect(err).to.be.null;
