@@ -50,7 +50,7 @@ describe('basic-auth', () => {
 			delete userObj.password;
 			User.signUp(userObj, (err, user) => {
 				expect(err).to.be.instanceOf(Error);
-				expect(err).to.have.property('message', 'Missing password');
+				expect(err).to.have.property('message', 'Missing password!');
 				expect(user).to.be.undefined;
 				done();
 			});
@@ -61,6 +61,18 @@ describe('basic-auth', () => {
 			delete userObj.email;
 			delete userObj.username;
 			User.signUp(userObj, (err, user) => {
+				expect(err).to.be.instanceOf(Error);
+				expect(err.message).to.equal('Missing username and email');
+				expect(user).to.be.undefined;
+				done();
+			});
+		});
+
+		it('should return error if object missing username AND email', done => {
+			let userObj = getUserObject();
+			delete userObj.email;
+			delete userObj.username;
+			User.signUp({}, (err, user) => {
 				expect(err).to.be.instanceOf(Error);
 				expect(err.message).to.equal('Missing username and email');
 				expect(user).to.be.undefined;
