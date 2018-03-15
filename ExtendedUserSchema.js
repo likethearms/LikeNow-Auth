@@ -69,14 +69,12 @@ class ExtendedUserSchema {
 	}
 
 	static validateUser(obj, callback) {
-		let { email, username, password } = obj;
+		if (!obj.email && !obj.username) return callback(new Error('Missing username and email'));
+		if (!obj.password) return callback(new Error('Missing email!'));
+		let { email } = obj;
 		this.find({ email }, (e, u) => {
 			if (e) return callback(e);
 			if (u.length) return callback(new Error('Username or Email is already in db'));
-			// Missing email and username
-			if (!email && !username) return callback(new Error('Missing username and email'));
-			// Missing password
-			if (!password) return callback(new Error('Missing password'));
 			callback(null);
 		});
 	}

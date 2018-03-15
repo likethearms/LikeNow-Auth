@@ -1,6 +1,6 @@
 {
   "name": "likenow-auth",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "LikeNow authentication package",
   "main": "index.js",
   "scripts": {
