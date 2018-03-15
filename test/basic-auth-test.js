@@ -4,7 +4,7 @@ const likenowauth = require('../index');
 const lnaUser = likenowauth.UserSchema;
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/test');
 
 let User;
 
