@@ -22,7 +22,7 @@ if (mongoose.models.User) {
 chai.use(chaiHttp);
 
 app.get('/', function (req, res) {
-	res.send('Hello World!')
+	res.send('Hello World!');
 });
 
 app.get('/secret', TokenHandler.tokenMiddleware, function (req, res) {
@@ -76,5 +76,5 @@ describe('middleware test', () => {
 			expect(res).to.have.status(200);
 			done();
 		});
-	})
+	});
 });

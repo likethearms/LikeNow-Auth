@@ -65,7 +65,7 @@ class TokenHandler {
 	 */
 	static tokenMiddleware(req, res, next) {
 		let User = mongoose.model('User');
-		if (req.method ==! 'OPTIONS') {
+		if (req.method !== 'OPTIONS') {
 			if (req.header('authorization')) {
 				// If one exists, attempt to get the header data
 				let token = req.header('authorization').split('Bearer ')[1];
