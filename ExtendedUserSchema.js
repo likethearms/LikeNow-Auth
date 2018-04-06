@@ -1,10 +1,12 @@
-const User = require('./User');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 const { TokenHandler } = require('./TokenHandler');
 
 class ExtendedUserSchema {
 	constructor(schema, options) {
-		this.UserSchema = User.getUserSchema(schema, options);
+		if (!('email' in schema) && !('username' in schema)) throw 'User model missing email or username!';
+		if (!('password' in schema)) throw 'User model missing password!';
+		this.UserSchema = mongoose.Schema(schema, options);
 	}
 
 	getExtendedUserSchema() {
@@ -28,7 +30,7 @@ class ExtendedUserSchema {
 	static logIn(obj, loginCallback) {
 		let email, username;
 		// Missing email and username
-		if (!obj.email && !obj.username) return loginCallback(new Error('Require username or email'));
+		if (!('email' in obj) && !('username' in obj)) return loginCallback(new Error('Require username or email'));
 		// Missing password
 		if (!obj.password) return loginCallback(new Error('Missing password'));
 		// Check search field
@@ -71,8 +73,10 @@ class ExtendedUserSchema {
 	static validateUser(obj, callback) {
 		if (!('email' in obj) && !('username' in obj)) return callback(new Error('Missing username and email'));
 		if (!('password' in obj)) return callback(new Error('Missing password!'));
-		let { email } = obj;
-		this.find({ email }, (e, u) => {
+		let q = {};
+		if('email' in obj) q.email = obj.email;
+		if('username' in obj) q.username = obj.username;
+		this.find(q, (e, u) => {
 			if (e) return callback(e);
 			if (u.length) return callback(new Error('Username or Email is already in db'));
 			callback(null);

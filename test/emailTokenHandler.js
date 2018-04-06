@@ -4,11 +4,12 @@ const expect = chai.expect;
 const likenowauth = require('../index');
 const TokenHandler = likenowauth.TokenHandler;
 const mongoose = require('mongoose');
+const testSchema = require('./emailTestSchema');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/test');
 
 let User;
-let UserSchema = likenowauth.getExtendedUserSchema();
+let UserSchema = likenowauth.getExtendedUserSchema(testSchema);
 
 if (mongoose.models.User) {
 	User = mongoose.model('User');

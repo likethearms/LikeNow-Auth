@@ -1,14 +1,16 @@
 const chai = require('chai');
 const expect = chai.expect;
 const likenowauth = require('../index');
-const lnaUser = likenowauth.UserSchema;
 const mongoose = require('mongoose');
+const testSchema = require('./emailTestSchema');
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/test');
 
 let User;
 
-let UserSchema = likenowauth.getExtendedUserSchema();
+let UserSchema = likenowauth.getExtendedUserSchema(testSchema);
+
 if (mongoose.models.User) {
 	User = mongoose.model('User');
 } else {
@@ -16,7 +18,7 @@ if (mongoose.models.User) {
 }
 
 
-describe('basic-auth', () => {
+describe('Email basic auth', () => {
 	let getUserObject = () => {
 		return {
 			email: 'test@user.fi',
@@ -37,6 +39,7 @@ describe('basic-auth', () => {
 				done();
 			});
 		});
+
 
 		it('should crypt password', done => {
 			User.signUp(getUserObject(), (err, user) => {

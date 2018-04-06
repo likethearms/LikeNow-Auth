@@ -4,6 +4,7 @@ const likeNowAuth = require('../index');
 const TokenHandler = likeNowAuth.TokenHandler;
 const chaiHttp = require('chai-http');
 const express = require('express');
+const testSchema = require('./emailTestSchema');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -12,7 +13,7 @@ mongoose.connect('mongodb://localhost/test');
 
 let User;
 
-let UserSchema =  likeNowAuth.getExtendedUserSchema();
+let UserSchema =  likeNowAuth.getExtendedUserSchema(testSchema);
 if (mongoose.models.User) {
 	User = mongoose.model('User');
 } else {
@@ -46,7 +47,7 @@ describe('middleware test', () => {
 						done();
 					});
 				});
-			})
+			});
 		});
 	});
 
