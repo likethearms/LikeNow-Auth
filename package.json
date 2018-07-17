@@ -1,6 +1,6 @@
 {
   "name": "likenow-auth",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "LikeNow authentication package",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^2.0.1",
-    "mongoose": "^5.1.2",
+    "bcrypt": "^3.0.0",
+    "mongoose": "^5.2.4",
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
